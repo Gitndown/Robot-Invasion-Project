@@ -7,8 +7,9 @@
 
         public LocationService (HttpClient client)
         {
-            _httpClient = client;
             client.DefaultRequestHeaders.Add("User-Agent", "C# App");
+            _httpClient = client;
+            
 
         }
 

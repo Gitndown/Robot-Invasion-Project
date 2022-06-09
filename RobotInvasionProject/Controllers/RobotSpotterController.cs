@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using RobotInvasionProjectApi.Services;
 
 namespace RobotInvasionProjectApi.Controllers
 {
@@ -9,17 +10,21 @@ namespace RobotInvasionProjectApi.Controllers
        
 
         private readonly ILogger<RobotSpotterController> _logger;
+        private readonly LocationService _service;
 
-        public RobotSpotterController(ILogger<RobotSpotterController> logger)
+        public RobotSpotterController(LocationService service, ILogger<RobotSpotterController> logger)
         {
             _logger = logger;
+            _service = service; // Injected LocationService into the constructor
         }
 
         [HttpGet(Name = "RobotSpotted")]
         public string Get()
         {
-
-            return "Paramatta River";
+            
+            string location = "this place";
+            _logger.Log(LogLevel.Information, new EventId(), null, "Location name received:" + location, null);
+            return location;
         }
 
         [HttpPost(Name = "RobotSpotted")]
