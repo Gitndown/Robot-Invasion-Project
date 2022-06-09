@@ -15,25 +15,28 @@ namespace RobotInvasionProjectApi.Controllers
         public RobotSpotterController(LocationService service, ILogger<RobotSpotterController> logger)
         {
             _logger = logger;
-            _service = service; // Injected LocationService into the constructor
+            _service = service; // Injected our LocationService class into the constructor
         }
 
-        [HttpGet(Name = "RobotSpotted")]
+        [HttpGet(Name = "WaterSourceFound")] // GET ENDPOINT- hardcoded location to practise with endpoints 
         public string Get()
         {
             
             string location = "this place";
             _logger.Log(LogLevel.Information, new EventId(), null, "Location name received:" + location, null);
-            return location;
+            return location; // practising with the logger. 
         }
 
-        [HttpPost(Name = "RobotSpotted")]
+        [HttpPost(Name = "RobotSpotted")] // POST ENDPOINT- user needs to give us the location
         public string Post(Location locationName)
         {
             _logger.Log(LogLevel.Information, new EventId(), null, "Location name sent:" + locationName.Name, null);
+            // practising with the logger.
             return locationName.Name;
             
         }
+
+        // Having trouble working out how to return the water location to the user based off of the location
 
       
     }

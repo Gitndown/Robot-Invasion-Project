@@ -7,10 +7,9 @@
 
         public LocationService (HttpClient client)
         {
-            client.DefaultRequestHeaders.Add("User-Agent", "C# App");
             _httpClient = client;
+            client.DefaultRequestHeaders.Add("User-Agent", "C# App"); // this is a requirement to access the API
             
-
         }
 
         public async Task <string> GetNearestWaterSource( Location location)
