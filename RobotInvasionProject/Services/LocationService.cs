@@ -14,7 +14,8 @@
 
         public async Task <string> GetNearestWaterSource( Location location)
         {
-            string url = $"https://nominatim.openstreetmap.org/details.php?osmtype=R&osmid=2345365&class=natural&addressdetails=1&hierarchy=0&group_hierarchy=1&polygon_geojson=1&format=json";
+            //string url = $"https://nominatim.openstreetmap.org/details.php?osmtype=R&osmid=2345365&class=natural&addressdetails=1&hierarchy=0&group_hierarchy=1&polygon_geojson=1&format=json";
+            string url = $"https://nominatim.openstreetmap.org/search.php?q=water%20around%20{location.Name}&polygon_geojson=1&format=jsonv2";
             HttpResponseMessage y =  await _httpClient.GetAsync(url);
 
             return await y.Content.ReadAsStringAsync();

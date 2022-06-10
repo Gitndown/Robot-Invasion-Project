@@ -12,6 +12,9 @@ namespace RobotInvasionProjectApi.Models
             }
 
             public DbSet<Location> Location { get; set; }
-        }
+
+      
+    }
+            
     
 }

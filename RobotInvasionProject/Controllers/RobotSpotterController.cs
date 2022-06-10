@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using RobotInvasionProjectApi.Services;
+using System.Text.Json;
 
 namespace RobotInvasionProjectApi.Controllers
 {
@@ -22,18 +23,32 @@ namespace RobotInvasionProjectApi.Controllers
         public string Get()
         {
             
-            string location = "this place";
-            _logger.Log(LogLevel.Information, new EventId(), null, "Location name received:" + location, null);
-            return location; // practising with the logger. 
+            Location thisPlace = new Location();
+            _logger.Log(LogLevel.Information, new EventId(), null, "Location name received:" + thisPlace.Latitude + thisPlace.Longitude, null);
+            return thisPlace.Name; // practising with the logger. 
         }
 
+
+
         [HttpPost(Name = "RobotSpotted")] // POST ENDPOINT- user needs to give us the location
-        public string Post(Location locationName)
+        public async Task<string> Post(Location location)
         {
-            _logger.Log(LogLevel.Information, new EventId(), null, "Location name sent:" + locationName.Name, null);
-            // practising with the logger.
-            return locationName.Name;
-            
+            try
+            {
+                _logger.Log(LogLevel.Information, new EventId(), null, "Location name sent:" + location.Name, null);
+                // practising with the logger.
+
+                var x = await _service.GetNearestWaterSource(location);
+                JsonSerializer.Serialize(x);
+                Class1[] xDeSerialising = JsonSerializer.Deserialize<Class1[]>(x);
+
+                return $"The nearest Body of water to {location.Name} is {xDeSerialising[0].display_name}";
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception("Result not found");
+            }
         }
 
         // Having trouble working out how to return the water location to the user based off of the location
